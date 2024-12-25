@@ -1,10 +1,10 @@
 {
   "name": "@fast2fa/fast2fa-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
-      "name": "Fast2FA",
-      "email": "admin@fast2fa.com",
-      "url": "https://www.fast2fa.com"
+    "name": "Fast2FA",
+    "email": "admin@fast2fa.com",
+    "url": "https://www.fast2fa.com"
   },
   "homepage": "https://github.com/fast2fa/fast2fa-node",
   "main": "src/index.js",
@@ -27,6 +27,6 @@
     "test": "jest"
   },
   "publishConfig": {
-      "access": "public"
+    "access": "public"
   }
 }
