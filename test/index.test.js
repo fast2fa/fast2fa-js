@@ -5,11 +5,11 @@ test('Full flow, succeded after a couple of requests', async () => {
     await expect(verify({
         id: '123',
         accesstoken: 'accesstoken123',
-        phonenumber: 'phonenumber123',
+        phone: 'phonenumber123',
         timeout: 10000,
         fetch: (url) => {
 
-            if (url === 'https://api.fast2fa.com/verify?id=123&accesstoken=accesstoken123&phonenumber=phonenumber123') {
+            if (url === 'https://api.fast2fa.com/verify?id=123&accesstoken=accesstoken123&phone=phonenumber123') {
                 return Promise.resolve({
                     json: () => ({ id: 'msgid123' })
                 });
@@ -29,11 +29,11 @@ test('Full flow, user said it wasn\'t him', async () => {
     await expect(verify({
         id: '123',
         accesstoken: 'accesstoken123',
-        phonenumber: 'phonenumber123',
+        phone: 'phonenumber123',
         timeout: 10000,
         fetch: (url) => {
 
-            if (url === 'https://api.fast2fa.com/verify?id=123&accesstoken=accesstoken123&phonenumber=phonenumber123') {
+            if (url === 'https://api.fast2fa.com/verify?id=123&accesstoken=accesstoken123&phone=phonenumber123') {
                 return Promise.resolve({
                     json: () => ({ id: 'msgid123' })
                 });
@@ -52,7 +52,7 @@ test('Timeout during verification', async () => {
     await expect(verify({
         id: '123',
         accesstoken: '123',
-        phonenumber: '123',
+        phone: '123',
         timeout: 2000,
         fetch: () => {
             return new Promise((resolve) => setTimeout(resolve({
