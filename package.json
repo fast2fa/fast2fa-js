@@ -1,12 +1,12 @@
 {
-  "name": "@fast2fa/fast2fa-node",
-  "version": "1.0.1",
+  "name": "@fast2fa/fast2fa-js",
+  "version": "1.0.2",
   "author": {
     "name": "Fast2FA",
     "email": "admin@fast2fa.com",
     "url": "https://www.fast2fa.com"
   },
-  "homepage": "https://github.com/fast2fa/fast2fa-node",
+  "homepage": "https://github.com/fast2fa/fast2fa-js",
   "main": "src/index.js",
   "devDependencies": {
     "jest": "^29.7.0"
@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/fast2fa/fast2fa-node"
+    "url": "git://github.com/fast2fa/fast2fa-js"
   },
   "bugs": {
-    "url": "https://github.com/fast2fa/fast2fa-node/issues",
+    "url": "https://github.com/fast2fa/fast2fa-js/issues",
     "mail": ""
   },
   "license": "Apache-2.0",
