@@ -1,8 +1,48 @@
-const { verify } = require('../src/index.js');
+const { verify, verifyAndWaitForStatus } = require('../src/index.js');
+const _ = require('lodash');
 
-test('Full flow, succeded after a couple of requests', async () => {
-    let count = 0;
+test('verify: Sends the REST request with the correct payload', async () => {
+    const payload = {
+        test: 'test'
+    };
     await expect(verify({
+        id: '123',
+        accesstoken: 'accesstoken123',
+        phone: 'phonenumber123',
+        timeout: 10000,
+        payload,
+        fetch: (url, options) => {
+
+            if ((url === 'https://api.fast2fa.com/verify?id=123&accesstoken=accesstoken123&phone=phonenumber123') 
+                && (_.isEqual(options.body, JSON.stringify(payload)))) {
+                return Promise.resolve({
+                    json: () => ({ id: 'msgid123' })
+                });
+            }
+            return Promise.reject(new Error('Invalid request'));
+        }
+    })).resolves.toBe('msgid123');
+});
+
+test('verify: FAils if the REST request fails', async () => {
+    const payload = {
+        test: 'test'
+    };
+    await expect(verify({
+        id: '123',
+        accesstoken: 'accesstoken123',
+        phone: 'phonenumber123',
+        timeout: 10000,
+        payload,
+        fetch: (url, options) => {
+            return Promise.reject(new Error('Invalid request'));
+        }
+    })).rejects.toThrow('Invalid request');
+});
+
+test('verifyAndWaitForStatus: Success after a couple of requests', async () => {
+    let count = 0;
+    await expect(verifyAndWaitForStatus({
         id: '123',
         accesstoken: 'accesstoken123',
         phone: 'phonenumber123',
@@ -24,9 +64,9 @@ test('Full flow, succeded after a couple of requests', async () => {
     })).resolves.toBe(true);
 });
 
-test('Full flow, user said it wasn\'t him', async () => {
+test('verifyAndWaitForStatus: User said it wasn\'t him', async () => {
     let count = 0;
-    await expect(verify({
+    await expect(verifyAndWaitForStatus({
         id: '123',
         accesstoken: 'accesstoken123',
         phone: 'phonenumber123',
@@ -48,8 +88,8 @@ test('Full flow, user said it wasn\'t him', async () => {
     })).resolves.toBe(false);
 });
 
-test('Timeout during verification', async () => {
-    await expect(verify({
+test('verifyAndWaitForStatus: Timeout during verification', async () => {
+    await expect(verifyAndWaitForStatus({
         id: '123',
         accesstoken: '123',
         phone: '123',
@@ -59,5 +99,5 @@ test('Timeout during verification', async () => {
                 json: () => ({ status: 'pending' })
             }), 1000))
         }
-    })).rejects.toThrow('Timeout');
+    })).rejects.toThrow('timeout');
 });
