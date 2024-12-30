@@ -5,7 +5,7 @@ async function verify({ id, accesstoken, phone, payload = {}, fetch: _fetch = fe
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ payload })
     });
     const data = await response.json();
 

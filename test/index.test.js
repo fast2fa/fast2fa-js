@@ -14,7 +14,7 @@ test('verify: Sends the REST request with the correct payload', async () => {
         fetch: (url, options) => {
 
             if ((url === 'https://api.fast2fa.com/verify?id=123&accesstoken=accesstoken123&phone=phonenumber123') 
-                && (_.isEqual(options.body, JSON.stringify(payload)))) {
+                && (_.isEqual(options.body, JSON.stringify({ payload })))) {
                 return Promise.resolve({
                     json: () => ({ id: 'msgid123' })
                 });
